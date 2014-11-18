@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" ng-app="app"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Cricket / ODI teams</title>
+        <meta name="description" content="ODI players as of November 2014">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="bower_components/bootstrap-css-only/css/bootstrap.css" type="text/css" rel="stylesheet" />
+        <script src="../bower_components/angular/angular.js"></script>
+        <script src="../bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js"></script>
+        <script src="../lib/angular-ui-bootstrap-tabs-include.js"></script>
+        <style>
+            .tab-pane {
+                margin-top: 1em;
+            }
+        </style>
+        <script>
+            var app = angular.module('app', [
+                'ui.bootstrap',
+                'ui.bootstrap.tabs.include'
+            ]);
+
+            app.controller('MainController', function($scope, $timeout) {
+
+                $scope.teams = [
+                    {
+                        name: 'India',
+                        src: 'demo/partials/india.html',
+                        _active: true
+                    },
+                    {
+                        name: 'Sri Lanka',
+                        src: 'demo/partials/sl.html',
+                        _active: false
+                    },
+                    {
+                        name: 'Australia',
+                        src: 'demo/partials/aus.html',
+                        _active: false
+                    },
+                    {
+                        name: 'South Africa',
+                        src: 'demo/partials/sa.html',
+                        _active: false
+                    },
+                    {
+                        name: 'England',
+                        src: 'demo/partials/eng.html',
+                        _active: false
+                    }
+                ];
+
+                $scope.onLoadTab = function(team) {
+                    console.log(
+                        'The ' + team.name + ' team roster has loaded lazily.'
+                    );
+                }
+                
+            });
+        </script>
+    </head>
+    <body ng-controller="MainController">
+        <a href="https://github.com/you"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+        <div class="container">
+            <h1>Cricket / ODI Teams</h1>
+            <tabset>
+                <tab ng-repeat="team in teams"
+                     heading="{{ team.name }}"
+                     active="team._active"
+                     tab-include="{{ team.src }}"
+                     tab-onload="onLoadTab(team)"
+                     tab-autoscroll="true">
+                     <!-- Any content here. -->
+                </tab>
+            </tabset>
+        </div>
+    </body>
+</html>
